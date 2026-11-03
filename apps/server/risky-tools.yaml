@@ -1,0 +1,3 @@
+# Tools whose arguments must come from the user, not from untrusted text.
+# Each entry lists the argument names that get checked.
+send_email: { check: [to] }
