@@ -14,6 +14,7 @@
     "@types/node": "^24.19.2"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./node": "./src/node.ts"
   }
 }

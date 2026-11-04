@@ -102,6 +102,7 @@ describe("approvals over HTTP", () => {
     const { app } = setup(50);
     const events = await app.request("/events?conversationId=someone-else");
     const reader = events.body!.getReader();
+    expect(new TextDecoder().decode((await reader.read()).value)).toContain("event: ready");
     await app.request("/chat", post({ message: "summarize offer.html" })); // times out
     const race = await Promise.race([
       reader.read().then(() => "got data"),

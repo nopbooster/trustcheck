@@ -11,7 +11,11 @@ export function ChatPage({ onActivity }: { onActivity: () => void }) {
   const [busy, setBusy] = useState(false);
   const bottom = useRef<HTMLDivElement>(null);
 
-  useEffect(() => bottom.current?.scrollIntoView({ behavior: "smooth" }), [items, busy]);
+  useEffect(() => {
+    // braces on purpose: an effect must return nothing or a cleanup function, and
+    // scrollIntoView() can return a value in some browsers
+    bottom.current?.scrollIntoView({ behavior: "smooth" });
+  }, [items, busy]);
 
   async function send(text: string) {
     const message = text.trim();

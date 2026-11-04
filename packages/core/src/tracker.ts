@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto";
 import type { Segment } from "./types";
 
 /** Stores every piece of text in a conversation, tagged by where it came from. */
@@ -34,7 +33,7 @@ export class ContextTracker {
   }
 
   private add(fields: Omit<Segment, "id" | "createdAt">): Segment {
-    const segment: Segment = { id: randomUUID(), createdAt: Date.now(), ...fields };
+    const segment: Segment = { id: globalThis.crypto.randomUUID(), createdAt: Date.now(), ...fields };
     this.segments.push(segment);
     return segment;
   }

@@ -53,7 +53,8 @@ apps/
   web/        React + Vite + Tailwind demo (chat, approval dialog, log)
   server/     Hono API, Claude agent loop, demo tools, SQLite logging, attack suite
 packages/
-  core/       the checker library (no network, database or Anthropic SDK)
+  core/       the checker library (no network, database or Anthropic SDK; works in browsers,
+              the file loader is the separate Node-only entry @trustcheck/core/node)
 demo/
   poisoned-pages/   15 attack pages with hidden instructions
   clean-pages/      10 normal pages for the "annoyance rate" test
@@ -93,11 +94,12 @@ All settings are optional except the key. They live in `apps/server/.env`:
 
 ## Using the demo
 
-The app has two tabs.
+The app has three tabs.
 
 - **Chat.** Your messages are **green** (trusted). Text returned by a tool is **red** (untrusted), shown inside the tool-call card. Press **Try an attack** to send a ready-made prompt that makes the agent read `offer.html`, a page with a hidden instruction to email `hacker@evil.com`.
 - **Approval dialog.** When a risky call has a value that did not come from you, the agent waits and a dialog appears: *"`to "hacker@evil.com"` came from `fetch_page("offer.html")`, not from you."* Deny is focused by default. If you do nothing, it is denied after the timeout.
 - **Log.** A table of every tool decision: arguments, decision, your answer, outcome and reason.
+- **Check.** A paste-and-check tool for your own agents. Enter what the user typed, what the agent read, the tool call it wants to make and your rules, and see live whether TrustCheck would stop it. It runs the same `check()` entirely in your browser: no server, no AI, nothing is sent anywhere. Five built-in examples include the "tool not in the rules" limit. You can open it directly at `/#check`.
 
 The demo tools never touch the real internet or send real email:
 

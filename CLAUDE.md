@@ -73,7 +73,7 @@ Three screens:
 Plus an **"Try an attack"** button that sends a ready-made prompt using a poisoned page.
 
 ## Security rules (must follow)
-- `ANTHROPIC_API_KEY` lives only in `apps/server/.env`. Never send it to the browser. `.env` is gitignored; provide `.env.example`.
+- `ANTHROPIC_API_KEY` lives only in `apps/server/.env` (local/dev build; the public build in milestone 10 takes a per-request visitor key instead). Never send it to the browser. `.env` is gitignored; provide `.env.example`.
 - The check happens on the server, never in the browser.
 - Demo tools must never touch the real internet or send real email.
 - Default on timeout or error = **deny**.
@@ -90,6 +90,13 @@ Plus an **"Try an attack"** button that sends a ready-made prompt using a poison
 5. `apps/web`: chat, colors, approval dialog, log page, attack button.
 6. 15–20 poisoned pages + 10 clean pages + attack suite script with a summary report.
 7. README with setup steps, screenshots and results.
+
+### Phase 2: free public web app (decided 2025-11-03)
+Goal: a free web app anyone can use. Scope chosen by the owner: (a) a paste-and-check tool and (b) a playground where visitors bring their own Anthropic API key. NOT a playground paid by the owner.
+8. **Paste-and-check tool** (`Check` tab). Runs `core` fully in the browser, no server, no AI. `core` main entry must stay free of Node imports (file loader is `@trustcheck/core/node`).
+9. **Make it safe for strangers**: per-visitor sessions (events, approvals and logs are currently global!), rate limits, size caps, conversation cleanup. Must be done before anything is public.
+10. **Bring-your-own-key playground**: key sent per request, used for that request only, never stored or logged. This replaces the rule "key only in apps/server/.env" for the public build; the checker still runs only on the server.
+11. **Deploy**: Dockerfile, one service serving API + web, deploy docs. Do not deploy to the owner's accounts without asking first.
 
 ## Working style
 - Do one milestone at a time; run tests before saying it's done.

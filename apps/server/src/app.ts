@@ -60,6 +60,10 @@ export function createApp(deps: AgentDeps, approvals: ApprovalManager) {
         unsubscribe();
       });
 
+      // Sent at once so proxies (like Vite's) flush the headers and the browser's EventSource opens now,
+      // not at the first heartbeat 15s later.
+      await stream.writeSSE({ event: "ready", data: "{}" });
+
       for (const a of approvals.listPending()) if (wanted(a.conversationId)) send("approval_requested", a);
 
       while (open) {

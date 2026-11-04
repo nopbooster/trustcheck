@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import Anthropic from "@anthropic-ai/sdk";
-import { loadRiskyToolsConfig } from "@trustcheck/core";
+import { loadRiskyToolsConfig } from "@trustcheck/core/node";
 import { config } from "../config";
 import { loadManifest } from "./manifest";
 import { summarize, toMarkdown } from "./report";

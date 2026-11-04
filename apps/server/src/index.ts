@@ -1,6 +1,6 @@
 import { serve } from "@hono/node-server";
 import Anthropic from "@anthropic-ai/sdk";
-import { loadRiskyToolsConfig } from "@trustcheck/core";
+import { loadRiskyToolsConfig } from "@trustcheck/core/node";
 import { ApprovalManager } from "./approvals";
 import { createApp } from "./app";
 import { config } from "./config";

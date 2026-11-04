@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import type Anthropic from "@anthropic-ai/sdk";
-import { loadRiskyToolsConfig } from "@trustcheck/core";
+import { loadRiskyToolsConfig } from "@trustcheck/core/node";
 import { describe, expect, it } from "vitest";
 import type { ModelClient } from "../agent";
 import { config } from "../config";
